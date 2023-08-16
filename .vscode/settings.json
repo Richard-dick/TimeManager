@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "qtablewidget": "cpp",
+        "qtablewidgetitem": "cpp"
+    }
+}
