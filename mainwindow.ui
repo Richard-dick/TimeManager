@@ -27,7 +27,7 @@
      <string>debug</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="missionWorkingTable">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -37,7 +37,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="debugEdit">
     <property name="geometry">
      <rect>
       <x>490</x>
@@ -58,6 +58,19 @@
     </property>
     <property name="text">
      <string>add</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="datetimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>480</y>
+      <width>131</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
