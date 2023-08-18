@@ -7,6 +7,12 @@
 #include <QDateTime>
 #include <QTimer>
 
+#include <QFile>
+#include <QTextStream>
+
+#include <QCloseEvent>
+// #include <QString>
+
 #include "addDialog.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,6 +28,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void saveMissionData();
+    void loadMissionData();
 
 private:
     Ui::MainWindow *ui;
@@ -32,5 +40,8 @@ private:
 private slots:
     void add_mission();
     void timerUpdate();
+    void saveBeforeClose(QCloseEvent *event);
 };
 #endif // MAINWINDOW_H
+
+

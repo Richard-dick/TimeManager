@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QLabel>
 #include <QLineEdit>
-#include <QComboBox>
+// #include <QComboBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -17,12 +17,16 @@ public:
         : QDialog(parent)
     {
         // 创建部件
-        nameLabel = new QLabel("名字:", this);
+        nameLabel = new QLabel("任务名称:", this);
         nameLineEdit = new QLineEdit(this);
-        genderLabel = new QLabel("性别:", this);
-        genderComboBox = new QComboBox(this);
-        genderComboBox->addItem("男");
-        genderComboBox->addItem("女");
+
+        startLabel = new QLabel("起始时间:", this);
+        startLineEdit = new QLineEdit(this);
+        startLineEdit->setText("2023-7-7");
+
+        endLabel = new QLabel("截止时间:", this);
+        endLineEdit = new QLineEdit(this);
+
         confirmButton = new QPushButton("确认", this);
         cancelButton = new QPushButton("取消", this);
 
@@ -34,8 +38,10 @@ public:
         QVBoxLayout *layout = new QVBoxLayout;
         layout->addWidget(nameLabel);
         layout->addWidget(nameLineEdit);
-        layout->addWidget(genderLabel);
-        layout->addWidget(genderComboBox);
+        layout->addWidget(startLabel);
+        layout->addWidget(startLineEdit);
+        layout->addWidget(endLabel);
+        layout->addWidget(endLineEdit);
         layout->addWidget(confirmButton);
         layout->addWidget(cancelButton);
 
@@ -48,16 +54,25 @@ public:
         return nameLineEdit->text();
     }
 
-    QString getGender() const
+    QString getStartTime() const
     {
-        return genderComboBox->currentText();
+        return startLineEdit->text();
     }
+
+    QString getEndTime() const
+    {
+        return endLineEdit->text();
+    }
+
 
 private:
     QLabel *nameLabel;
     QLineEdit *nameLineEdit;
-    QLabel *genderLabel;
-    QComboBox *genderComboBox;
+    QLabel *startLabel;
+    QLineEdit *startLineEdit;
+    QLabel *endLabel;
+    QLineEdit *endLineEdit;
+    // QComboBox *genderComboBox;
     QPushButton *confirmButton;
     QPushButton *cancelButton;
 };

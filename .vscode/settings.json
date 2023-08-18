@@ -2,6 +2,8 @@
     "files.associations": {
         "qtablewidget": "cpp",
         "qtablewidgetitem": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp"
     }
 }
