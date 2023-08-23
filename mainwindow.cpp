@@ -9,11 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // ! 时间显示
     timerUpdate();
+    debugInfo("Setting up time display!");
     QTimer *timer = new QTimer(this);
     timer->start(1000);
 
     // ! 初始化 任务 Table
     // 设置列标题
+    debugInfo("Init mission Table !");
     ui->missionWorkingTable->setColumnCount(ColumnCount);
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期";
@@ -38,6 +40,7 @@ MainWindow::~MainWindow()
 void MainWindow::add_mission()
 {
     // 创建对话框实例
+    debugInfo("To add mission !");
     AddInfoDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted)
     {
@@ -53,6 +56,7 @@ void MainWindow::add_mission()
         ui->missionWorkingTable->setItem(row, 1, new QTableWidgetItem(start));
         ui->missionWorkingTable->setItem(row, 2, new QTableWidgetItem(end));
     }
+    debugInfo("Mission added successfully");
 }
 
 // 定义成员函数timerUpdate()实现用户界面显示时间：
@@ -91,9 +95,9 @@ void MainWindow::saveMissionData()
         }
 
         file.close();
-        ui->debugEdit->setText("Successfully save!!");
+        debugInfo("Successfully save!!");
     }else{
-        ui->debugEdit->setText("Failed to save!!");
+        debugInfo("Failed to save!!");
     }
 }
 
@@ -118,12 +122,11 @@ void MainWindow::loadMissionData()
                 ui->missionWorkingTable->setItem(row, col, item);
             }
             ++row;
-            
         }
 
         file.close();
     }else{
-        ui->debugEdit->setText("No such file");
+        debugInfo("No such file");
     }
 }
 
@@ -134,4 +137,23 @@ void MainWindow::saveBeforeClose(QCloseEvent *event)
 
     // 继续执行窗口关闭操作
     event->accept();
+}
+
+
+void MainWindow::debugInfo(const QString &text)
+{
+    QString currentText = ui->debugEdit->toPlainText(); // 获取当前文本
+
+    if (!currentText.isEmpty())
+    {
+        currentText += "\n"; // 添加换行符，将新内容追加到新行
+    }
+
+    QString formattedDateTime = currentTime.toString("yyyy-MM-dd HH:mm:ss"); // 格式化时间
+
+    QString fullText = "[" + formattedDateTime + "] " + text; // 将时间和文本拼接
+
+    currentText += fullText; // 将新文本追加到当前文本
+
+    ui->debugEdit->setText(currentText); // 设置新的文本
 }

@@ -30,6 +30,7 @@ public:
     ~MainWindow();
     void saveMissionData();
     void loadMissionData();
+    void debugInfo(const QString &text);
 
 private:
     Ui::MainWindow *ui;
