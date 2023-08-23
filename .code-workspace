@@ -1,0 +1,21 @@
+{
+    "folders": [
+        {
+            "path": "C:/Users/liziheng/Documents/QtProject/TimeManager"
+        }
+    ],
+    "settings": {
+        "extensions": {
+            "recommendations": [
+                "akamud.vscode-theme-onedark",
+                "aaron-bond.better-comments",
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "twxs.cmake",
+                "ms-vscode.cpptools-themes",
+                "ms-vscode.cmake-tools",
+                "tonka3000.qtvsctools"
+            ]
+        }
+    }
+}
