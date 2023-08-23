@@ -19,7 +19,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-const int ColumnCount = 3; // missionXXTable的列数
+const int ColumnCount = 3; // taskXXTable的列数
 
 class MainWindow : public QMainWindow
 {
@@ -28,8 +28,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void saveMissionData();
-    void loadMissionData();
+    void saveTaskData();
+    void loadTaskData();
     void debugInfo(const QString &text);
 
 private:
@@ -39,7 +39,7 @@ private:
 
 
 private slots:
-    void add_mission();
+    void add_task();
     void timerUpdate();
     void saveBeforeClose(QCloseEvent *event);
 };

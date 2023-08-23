@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QDateTime>
+#include <QDateTimeEdit>
 // #include <QComboBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -21,11 +23,14 @@ public:
         nameLineEdit = new QLineEdit(this);
 
         startLabel = new QLabel("起始时间:", this);
-        startLineEdit = new QLineEdit(this);
-        startLineEdit->setText("2023-7-7");
+        startTimeEdit = new QDateTimeEdit(this);
+        startTimeEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+        startTimeEdit->setDateTime(QDateTime::fromMSecsSinceEpoch(0));
 
         endLabel = new QLabel("截止时间:", this);
-        endLineEdit = new QLineEdit(this);
+        endTimeEdit = new QDateTimeEdit(this);
+        endTimeEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+        endTimeEdit->setDateTime(QDateTime::fromMSecsSinceEpoch(0));
 
         confirmButton = new QPushButton("确认", this);
         cancelButton = new QPushButton("取消", this);
@@ -39,14 +44,15 @@ public:
         layout->addWidget(nameLabel);
         layout->addWidget(nameLineEdit);
         layout->addWidget(startLabel);
-        layout->addWidget(startLineEdit);
+        layout->addWidget(startTimeEdit);
         layout->addWidget(endLabel);
-        layout->addWidget(endLineEdit);
+        layout->addWidget(endTimeEdit);
         layout->addWidget(confirmButton);
         layout->addWidget(cancelButton);
 
         // 设置对话框布局
         setLayout(layout);
+
     }
 
     QString getName() const
@@ -54,14 +60,14 @@ public:
         return nameLineEdit->text();
     }
 
-    QString getStartTime() const
+    QDateTime getStartTime() const
     {
-        return startLineEdit->text();
+        return startTimeEdit->dateTime();
     }
 
-    QString getEndTime() const
+    QDateTime getEndTime() const
     {
-        return endLineEdit->text();
+        return endTimeEdit->dateTime();
     }
 
 
@@ -69,9 +75,11 @@ private:
     QLabel *nameLabel;
     QLineEdit *nameLineEdit;
     QLabel *startLabel;
-    QLineEdit *startLineEdit;
+    QDateTimeEdit *startTimeEdit;
+    // QLineEdit *startLineEdit;
     QLabel *endLabel;
-    QLineEdit *endLineEdit;
+    QDateTimeEdit *endTimeEdit;
+    // QLineEdit *endLineEdit;
     // QComboBox *genderComboBox;
     QPushButton *confirmButton;
     QPushButton *cancelButton;

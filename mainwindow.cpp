@@ -15,18 +15,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     // ! 初始化 任务 Table
     // 设置列标题
-    debugInfo("Init mission Table !");
-    ui->missionWorkingTable->setColumnCount(ColumnCount);
+    debugInfo("Init task Table !");
+    ui->taskWorkingTable->setColumnCount(ColumnCount);
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期";
-    ui->missionWorkingTable->setHorizontalHeaderLabels(headerLabels);
+    ui->taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
     // 同步数据
-    loadMissionData();
+    loadTaskData();
 
     // ! 添加槽函数
     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpdate())); // 时间更新
-    connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::add_mission); // 添加任务的会话
-    connect(ui->saveMissionButton, &QPushButton::clicked, this, &MainWindow::saveMissionData); // 保存任务的会话
+    connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::add_task); // 添加任务的会话
+    connect(ui->saveTaskButton, &QPushButton::clicked, this, &MainWindow::saveTaskData); // 保存任务的会话
     connect(this, &MainWindow::closeEvent, this, &MainWindow::saveBeforeClose); // 连接窗口关闭事件到槽函数
     
 }
@@ -37,26 +37,26 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::add_mission()
+void MainWindow::add_task()
 {
     // 创建对话框实例
-    debugInfo("To add mission !");
+    debugInfo("To add task !");
     AddInfoDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted)
     {
         // 获取对话框中的信息
         QString name = dialog.getName();
-        QString start = dialog.getStartTime();
-        QString end = dialog.getEndTime();
+        QDateTime start = dialog.getStartTime();
+        QDateTime end = dialog.getEndTime();
 
         // 将信息添加到表格
-        int row = ui->missionWorkingTable->rowCount();
-        ui->missionWorkingTable->insertRow(row);
-        ui->missionWorkingTable->setItem(row, 0, new QTableWidgetItem(name));
-        ui->missionWorkingTable->setItem(row, 1, new QTableWidgetItem(start));
-        ui->missionWorkingTable->setItem(row, 2, new QTableWidgetItem(end));
+        int row = ui->taskWorkingTable->rowCount();
+        ui->taskWorkingTable->insertRow(row);
+        ui->taskWorkingTable->setItem(row, 0, new QTableWidgetItem(name));
+        ui->taskWorkingTable->setItem(row, 1, new QTableWidgetItem(start.toString("yyyy-MM-dd")));
+        ui->taskWorkingTable->setItem(row, 2, new QTableWidgetItem(end.toString("yyyy-MM-dd")));
     }
-    debugInfo("Mission added successfully");
+    debugInfo("Task added successfully");
 }
 
 // 定义成员函数timerUpdate()实现用户界面显示时间：
@@ -69,24 +69,24 @@ void MainWindow::timerUpdate()
     ui->datetimeLabel->setText(str);
 }
 
-void MainWindow::saveMissionData()
+void MainWindow::saveTaskData()
 {
-    QFile file("workingMission.txt");
+    QFile file("workingTask.txt");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream out(&file);
 
         // 保存每行的数据
-        for (int row = 0; row < ui->missionWorkingTable->rowCount(); ++row)
+        for (int row = 0; row < ui->taskWorkingTable->rowCount(); ++row)
         {
-            for (int col = 0; col < ui->missionWorkingTable->columnCount(); ++col)
+            for (int col = 0; col < ui->taskWorkingTable->columnCount(); ++col)
             {
-                QTableWidgetItem *item = ui->missionWorkingTable->item(row, col);
+                QTableWidgetItem *item = ui->taskWorkingTable->item(row, col);
                 if (item)
                 {
                     out << item->text();
                 }
-                if (col < ui->missionWorkingTable->columnCount() - 1)
+                if (col < ui->taskWorkingTable->columnCount() - 1)
                 {
                     out << "\t"; // 使用制表符分隔列
                 }
@@ -101,9 +101,9 @@ void MainWindow::saveMissionData()
     }
 }
 
-void MainWindow::loadMissionData()
+void MainWindow::loadTaskData()
 {
-    QFile file("workingMission.txt");
+    QFile file("workingTask.txt");
     if (file.exists() && (file.open(QIODevice::ReadOnly | QIODevice::Text)))
     {
         QTextStream in(&file);
@@ -115,11 +115,11 @@ void MainWindow::loadMissionData()
         {
             QString line = in.readLine();
             QStringList data = line.split("\t");
-            ui->missionWorkingTable->insertRow(row);
+            ui->taskWorkingTable->insertRow(row);
             for (int col = 0; col < data.size(); ++col)
             {
                 QTableWidgetItem *item = new QTableWidgetItem(data[col]);
-                ui->missionWorkingTable->setItem(row, col, item);
+                ui->taskWorkingTable->setItem(row, col, item);
             }
             ++row;
         }
@@ -133,7 +133,7 @@ void MainWindow::loadMissionData()
 void MainWindow::saveBeforeClose(QCloseEvent *event)
 {
     // 在关闭前保存表格数据
-    saveMissionData();
+    saveTaskData();
 
     // 继续执行窗口关闭操作
     event->accept();

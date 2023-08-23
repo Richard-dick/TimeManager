@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         addDialog.h
+        task.h
+        task.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
