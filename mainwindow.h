@@ -14,12 +14,11 @@
 // #include <QString>
 
 #include "addDialog.h"
+#include "task.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
-const int ColumnCount = 3; // taskXXTable的列数
 
 class MainWindow : public QMainWindow
 {
@@ -35,6 +34,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QDateTime currentTime;
+    TaskTableWiget *taskWorkingTable;
     // QTableWidget *tableWidget; // 声明一个成员变量以便在槽函数中使用
 
 

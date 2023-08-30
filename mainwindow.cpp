@@ -16,10 +16,14 @@ MainWindow::MainWindow(QWidget *parent)
     // ! 初始化 任务 Table
     // 设置列标题
     debugInfo("Init task Table !");
-    ui->taskWorkingTable->setColumnCount(ColumnCount);
+    
+    taskWorkingTable = new TaskTableWiget();
+    taskWorkingTable->setGeometry(0, 0, 100, 100);
+    taskWorkingTable->setColumnCount(ColumnCount);
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期";
-    ui->taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
+    taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
+    addWidget(taskWorkingTable);
     // 同步数据
     loadTaskData();
 
@@ -50,11 +54,11 @@ void MainWindow::add_task()
         QDateTime end = dialog.getEndTime();
 
         // 将信息添加到表格
-        int row = ui->taskWorkingTable->rowCount();
-        ui->taskWorkingTable->insertRow(row);
-        ui->taskWorkingTable->setItem(row, 0, new QTableWidgetItem(name));
-        ui->taskWorkingTable->setItem(row, 1, new QTableWidgetItem(start.toString("yyyy-MM-dd")));
-        ui->taskWorkingTable->setItem(row, 2, new QTableWidgetItem(end.toString("yyyy-MM-dd")));
+        int row = taskWorkingTable->rowCount();
+        taskWorkingTable->insertRow(row);
+        taskWorkingTable->setItem(row, 0, new QTableWidgetItem(name));
+        taskWorkingTable->setItem(row, 1, new QTableWidgetItem(start.toString("yyyy-MM-dd")));
+        taskWorkingTable->setItem(row, 2, new QTableWidgetItem(end.toString("yyyy-MM-dd")));
     }
     debugInfo("Task added successfully");
 }
@@ -77,16 +81,16 @@ void MainWindow::saveTaskData()
         QTextStream out(&file);
 
         // 保存每行的数据
-        for (int row = 0; row < ui->taskWorkingTable->rowCount(); ++row)
+        for (int row = 0; row < taskWorkingTable->rowCount(); ++row)
         {
-            for (int col = 0; col < ui->taskWorkingTable->columnCount(); ++col)
+            for (int col = 0; col < taskWorkingTable->columnCount(); ++col)
             {
-                QTableWidgetItem *item = ui->taskWorkingTable->item(row, col);
+                QTableWidgetItem *item = taskWorkingTable->item(row, col);
                 if (item)
                 {
                     out << item->text();
                 }
-                if (col < ui->taskWorkingTable->columnCount() - 1)
+                if (col < taskWorkingTable->columnCount() - 1)
                 {
                     out << "\t"; // 使用制表符分隔列
                 }
@@ -115,11 +119,11 @@ void MainWindow::loadTaskData()
         {
             QString line = in.readLine();
             QStringList data = line.split("\t");
-            ui->taskWorkingTable->insertRow(row);
+            taskWorkingTable->insertRow(row);
             for (int col = 0; col < data.size(); ++col)
             {
                 QTableWidgetItem *item = new QTableWidgetItem(data[col]);
-                ui->taskWorkingTable->setItem(row, col, item);
+                taskWorkingTable->setItem(row, col, item);
             }
             ++row;
         }

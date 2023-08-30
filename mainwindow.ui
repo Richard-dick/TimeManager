@@ -27,16 +27,6 @@
      <string>debug</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="taskWorkingTable">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>321</width>
-      <height>461</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="debugEdit">
     <property name="geometry">
      <rect>

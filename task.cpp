@@ -1,9 +1,9 @@
 #include "task.h"
 
-task::task(/* args */)
+Task::Task(/* args */)
 {
 }
 
-task::~task()
+Task::~Task()
 {
 }
