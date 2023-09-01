@@ -9,7 +9,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# PC 环境
 set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5")
+# laptop 环境
+set(CMAKE_PREFIX_PATH "C:/C-environment/Qt/5.15.2/mingw81_64/lib/cmake/Qt5")
 
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
