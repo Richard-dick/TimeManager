@@ -34,7 +34,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QDateTime currentTime;
-    TaskTableWiget *taskWorkingTable;
+    TaskTableWidget *taskWorkingTable;
     // QTableWidget *tableWidget; // 声明一个成员变量以便在槽函数中使用
 
 

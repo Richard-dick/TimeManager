@@ -17,13 +17,13 @@ MainWindow::MainWindow(QWidget *parent)
     // 设置列标题
     debugInfo("Init task Table !");
     
-    taskWorkingTable = new TaskTableWiget();
-    taskWorkingTable->setGeometry(0, 0, 100, 100);
+    taskWorkingTable = new TaskTableWidget();
+    // taskWorkingTable->setGeometry(0, 0, 100, 100);
     taskWorkingTable->setColumnCount(ColumnCount);
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期";
     taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
-    addWidget(taskWorkingTable);
+    
     // 同步数据
     loadTaskData();
 

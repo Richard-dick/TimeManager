@@ -26,12 +26,12 @@ public:
 const int ColumnCount = 3; // taskTable的列数
 
 
-class TaskTableWiget : public QTableWidget
+class TaskTableWidget : public QTableWidget
 {
     Q_OBJECT
 
 public:
-    TaskTableWiget(QWidget *parent = nullptr)
+    TaskTableWidget(QWidget *parent = nullptr)
         : QTableWidget(parent)
     {
         // setRowCount(5);
