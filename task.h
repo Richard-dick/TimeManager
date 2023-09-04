@@ -44,6 +44,7 @@ public:
         //     setItem(row, 1, item2);
         // }
     }
+    int selectedRow = -1;
 
 protected:
     void mousePressEvent(QMouseEvent *event) override
@@ -58,7 +59,7 @@ protected:
     }
 
 private:
-    int selectedRow = -1;
+    
 };
 
 

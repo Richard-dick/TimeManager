@@ -76,6 +76,17 @@
      <string>save</string>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>331</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="mainHLayout"/>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

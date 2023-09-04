@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期";
     taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
+    ui->mainHLayout->addWidget(taskWorkingTable);
+    // setLayout(ui->mainHLayout);
     
     // 同步数据
     loadTaskData();
