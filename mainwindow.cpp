@@ -16,18 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     // ! 初始化 任务 Table
     // 设置列标题
     debugInfo("Init task Table !");
-    
     taskWorkingTable = new TaskTableWidget();
-    // taskWorkingTable->setGeometry(0, 0, 100, 100);
-    taskWorkingTable->setColumnCount(ColumnCount);
-    QStringList headerLabels;
-    headerLabels << "任务简称" << "起始时间" << "截止日期";
-    taskWorkingTable->setHorizontalHeaderLabels(headerLabels);
     ui->mainHLayout->addWidget(taskWorkingTable);
-    // setLayout(ui->mainHLayout);
     
-    // 同步数据
-    loadTaskData();
+    // // 同步数据
+    // loadTaskData();
 
     // ! 添加槽函数
     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpdate())); // 时间更新

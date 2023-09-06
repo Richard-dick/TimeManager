@@ -11,16 +11,27 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 
-class Task{
-private:
-    QString name;       // 任务名
+enum class TaskState {
+    TODO,
+    DOING,
+    DONE,
+    INTR,
+    ABANDON
+};
+
+
+typedef struct task{
+    uint64_t order;
+    uint64_t prio;
+    TaskState state;
+    QDateTime left_time;
+    QDateTime init_time;
     QDateTime start_time;
     QDateTime end_time;
-
-public:
-    Task(/* args */);
-    ~Task();
-};
+    QString name;
+    QString description;
+    QString task_tag;
+}Task;
 
 
 const int ColumnCount = 3; // taskTable的列数
@@ -31,35 +42,22 @@ class TaskTableWidget : public QTableWidget
     Q_OBJECT
 
 public:
-    TaskTableWidget(QWidget *parent = nullptr)
-        : QTableWidget(parent)
-    {
-        // setRowCount(5);
-        setColumnCount(ColumnCount);
-
-        // for (int row = 0; row < 5; ++row) {
-        //     QTableWidgetItem *item1 = new QTableWidgetItem(QString("Item %1").arg(row));
-        //     QTableWidgetItem *item2 = new QTableWidgetItem(QString("Value %1").arg(row * 10));
-        //     setItem(row, 0, item1);
-        //     setItem(row, 1, item2);
-        // }
-    }
-    int selectedRow = -1;
+    TaskTableWidget(QWidget *parent = nullptr);
+    ~TaskTableWidget();
+    int getSelectedRow();
+    int saveTask();
+    int loadTask();
+    void flushTable();
+    void syncTable();
+    int addTask(Task &);
+    int deleteTask();
 
 protected:
-    void mousePressEvent(QMouseEvent *event) override
-    {
-        QTableWidgetItem *selectedItem = itemAt(event->pos());
-        if (selectedItem) {
-            selectedRow = selectedItem->row();
-        } else {
-            selectedRow = -1;
-        }
-        QTableWidget::mousePressEvent(event);
-    }
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
-    
+    int selectedRow = -1;
+    std::vector<Task> *taskVector;
 };
 
 
