@@ -70,33 +70,10 @@ void MainWindow::timerUpdate()
 
 void MainWindow::saveTaskData()
 {
-    QFile file("workingTask.txt");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-
-        // 保存每行的数据
-        for (int row = 0; row < taskWorkingTable->rowCount(); ++row)
-        {
-            for (int col = 0; col < taskWorkingTable->columnCount(); ++col)
-            {
-                QTableWidgetItem *item = taskWorkingTable->item(row, col);
-                if (item)
-                {
-                    out << item->text();
-                }
-                if (col < taskWorkingTable->columnCount() - 1)
-                {
-                    out << "\t"; // 使用制表符分隔列
-                }
-            }
-            out << "\n"; // 换行分隔行
-        }
-
-        file.close();
-        debugInfo("Successfully save!!");
-    }else{
+    if( taskWorkingTable->saveTask() == -1){
         debugInfo("Failed to save!!");
+    }else{
+        debugInfo("Successfully save!!");
     }
 }
 

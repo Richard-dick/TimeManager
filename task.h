@@ -11,7 +11,12 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 
-enum class TaskState {
+#include <QFile>
+#include <QTextStream>
+
+#include <QVector>
+
+enum TaskState {
     TODO,
     DOING,
     DONE,
@@ -20,11 +25,12 @@ enum class TaskState {
 };
 
 
+
 typedef struct task{
     uint64_t order;
     uint64_t prio;
     TaskState state;
-    QDateTime left_time;
+    uint64_t left_time;
     QDateTime init_time;
     QDateTime start_time;
     QDateTime end_time;
@@ -57,7 +63,7 @@ protected:
 
 private:
     int selectedRow = -1;
-    std::vector<Task> *taskVector;
+    QVector<Task> *taskVector;
 };
 
 
