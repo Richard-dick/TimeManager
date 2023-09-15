@@ -27,20 +27,20 @@ enum TaskState {
 
 
 typedef struct task{
-    uint64_t order;
-    uint64_t prio;
-    TaskState state;
+    // uint64_t order;
+    // uint64_t prio;
+    // TaskState state;
     uint64_t left_time;
-    QDateTime init_time;
+    // QDateTime init_time;
     QDateTime start_time;
     QDateTime end_time;
     QString name;
-    QString description;
-    QString task_tag;
+    // QString description;
+    // QString task_tag;
 }Task;
 
 
-const int ColumnCount = 3; // taskTable的列数
+const int ColumnCount = 4; // taskTable的列数
 
 
 class TaskTableWidget : public QTableWidget

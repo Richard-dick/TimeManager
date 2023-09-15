@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     taskWorkingTable = new TaskTableWidget();
     ui->mainHLayout->addWidget(taskWorkingTable);
     
-    // // 同步数据
-    // loadTaskData();
+    // 同步数据
+    loadTaskData();
 
     // ! 添加槽函数
     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpdate())); // 时间更新
@@ -44,17 +44,15 @@ void MainWindow::add_task()
     if (dialog.exec() == QDialog::Accepted)
     {
         // 获取对话框中的信息
-        QString name = dialog.getName();
-        QDateTime start = dialog.getStartTime();
-        QDateTime end = dialog.getEndTime();
+        Task *to_add = new Task();
+        to_add->name = dialog.getName();
+        to_add->start_time = dialog.getStartTime();
+        to_add->end_time = dialog.getEndTime();
 
         // 将信息添加到表格
-        int row = taskWorkingTable->rowCount();
-        taskWorkingTable->insertRow(row);
-        taskWorkingTable->setItem(row, 0, new QTableWidgetItem(name));
-        taskWorkingTable->setItem(row, 1, new QTableWidgetItem(start.toString("yyyy-MM-dd")));
-        taskWorkingTable->setItem(row, 2, new QTableWidgetItem(end.toString("yyyy-MM-dd")));
+        taskWorkingTable->addTask(*to_add);
     }
+    taskWorkingTable->flushTable();
     debugInfo("Task added successfully");
 }
 
@@ -79,30 +77,11 @@ void MainWindow::saveTaskData()
 
 void MainWindow::loadTaskData()
 {
-    QFile file("workingTask.txt");
-    if (file.exists() && (file.open(QIODevice::ReadOnly | QIODevice::Text)))
-    {
-        QTextStream in(&file);
-
-        // 逐行读取数据并添加到表格
-        int row = 0;
-        // ui->debugEdit->setText(QString::number(row));
-        while (!in.atEnd())
-        {
-            QString line = in.readLine();
-            QStringList data = line.split("\t");
-            taskWorkingTable->insertRow(row);
-            for (int col = 0; col < data.size(); ++col)
-            {
-                QTableWidgetItem *item = new QTableWidgetItem(data[col]);
-                taskWorkingTable->setItem(row, col, item);
-            }
-            ++row;
-        }
-
-        file.close();
+    if( taskWorkingTable->loadTask() == -1){
+        debugInfo("No such file !!");
     }else{
-        debugInfo("No such file");
+        debugInfo("Successfully load !!");
+        taskWorkingTable->flushTable();
     }
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>913</width>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>630</x>
       <y>110</y>
       <width>53</width>
       <height>15</height>
@@ -30,7 +30,7 @@
    <widget class="QTextEdit" name="debugEdit">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>610</x>
       <y>170</y>
       <width>291</width>
       <height>311</height>
@@ -40,7 +40,7 @@
    <widget class="QPushButton" name="addButton">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>620</x>
       <y>50</y>
       <width>31</width>
       <height>23</height>
@@ -53,7 +53,7 @@
    <widget class="QLabel" name="datetimeLabel">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>780</x>
       <y>480</y>
       <width>131</width>
       <height>71</height>
@@ -66,7 +66,7 @@
    <widget class="QPushButton" name="saveTaskButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>680</x>
       <y>50</y>
       <width>75</width>
       <height>23</height>
@@ -81,7 +81,7 @@
      <rect>
       <x>60</x>
       <y>40</y>
-      <width>331</width>
+      <width>471</width>
       <height>481</height>
      </rect>
     </property>
@@ -93,7 +93,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>913</width>
      <height>23</height>
     </rect>
    </property>
