@@ -40,6 +40,7 @@ private:
 
 private slots:
     void add_task();
+    void del_task();
     void timerUpdate();
     void saveBeforeClose(QCloseEvent *event);
 };

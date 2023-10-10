@@ -58,6 +58,7 @@ public:
     int addTask(Task &);
     int deleteTask();
 
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 

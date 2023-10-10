@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     // ! 添加槽函数
     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpdate())); // 时间更新
     connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::add_task); // 添加任务的会话
+    connect(ui->deleteButton, &QPushButton::clicked, this, &MainWindow::del_task); // 删除任务的会话
     connect(ui->saveTaskButton, &QPushButton::clicked, this, &MainWindow::saveTaskData); // 保存任务的会话
     connect(this, &MainWindow::closeEvent, this, &MainWindow::saveBeforeClose); // 连接窗口关闭事件到槽函数
     
@@ -56,6 +57,19 @@ void MainWindow::add_task()
     debugInfo("Task added successfully");
 }
 
+void MainWindow::del_task()
+{
+    debugInfo("To delete task !");
+    int del_row = taskWorkingTable->deleteTask();
+    if( del_row == -1){
+        debugInfo("nothing deleted! ");
+    }else{
+        taskWorkingTable->flushTable();
+        debugInfo("Task "+ QString::number(del_row) +": deleted successfully");
+    }
+    
+}
+
 // 定义成员函数timerUpdate()实现用户界面显示时间：
 void MainWindow::timerUpdate()
 {
@@ -82,6 +96,8 @@ void MainWindow::loadTaskData()
     }else{
         debugInfo("Successfully load !!");
         taskWorkingTable->flushTable();
+        
+        debugInfo("Successfully flush !!");
     }
 }
 

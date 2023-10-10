@@ -4,10 +4,13 @@ TaskTableWidget::TaskTableWidget(QWidget *parent)
     : QTableWidget(parent)
 {     
     setColumnCount(ColumnCount);
+    int rcnt = rowCount();
+    setRowCount(4);
     QStringList headerLabels;
     headerLabels << "任务简称" << "起始时间" << "截止日期" << "剩余时间";
     setHorizontalHeaderLabels(headerLabels);
     taskVector = new QVector<Task>;
+    
 }
 
 TaskTableWidget::~TaskTableWidget(){     
@@ -33,6 +36,7 @@ int TaskTableWidget::saveTask()
             out << item.end_time.toString("yyyy-MM-dd hh:mm:ss") << "\t";
             // out << item.task_tag << "\t";
             // out << item.description << "\t";
+            out << "\n";
         }
 
         file.close();
@@ -54,21 +58,22 @@ int TaskTableWidget::loadTask()
         int row = 0;
         // ! 先消耗一行
         in.readLine();
+        Task *item = nullptr;
         QDateTime currentTime = QDateTime::currentDateTime();
         while (!in.atEnd())
         {
             QString line = in.readLine();
             QStringList data = line.split("\t");
-            Task *item = new Task();
-            // item->order = data[0].toULongLong();
-            item->name = data[1];
-            // item->prio = data[2].toULongLong();
-            // item->state = TaskState(data[3].toUInt());
-            // item->init_time = QDateTime::fromString(data[4], "yyyy-MM-dd hh:mm:ss");
-            item->start_time = QDateTime::fromString(data[5], "yyyy-MM-dd hh:mm:ss");
-            item->end_time = QDateTime::fromString(data[6], "yyyy-MM-dd hh:mm:ss");
-            // item->task_tag = data[7];
-            // item->description = data[8];
+            item = new Task();
+            // // item->order = data[0].toULongLong();
+            item->name = data[0];
+            // // item->prio = data[2].toULongLong();
+            // // item->state = TaskState(data[3].toUInt());
+            // // item->init_time = QDateTime::fromString(data[4], "yyyy-MM-dd hh:mm:ss");
+            item->start_time = QDateTime::fromString(data[1], "yyyy-MM-dd hh:mm:ss");
+            item->end_time = QDateTime::fromString(data[2], "yyyy-MM-dd hh:mm:ss");
+            // // item->task_tag = data[7];
+            // // item->description = data[8];
             item->left_time = currentTime.secsTo(item->end_time);
             taskVector->push_back(*item);
         }
@@ -87,15 +92,18 @@ void TaskTableWidget::flushTable()
     int row = 0; 
     int col = 0;
     QTableWidgetItem *item;
+    setRowCount(taskVector->size());
+    
     for(auto data = taskVector->begin(); data != taskVector->end(); ++data)
     {
         col = 0;
         item = new QTableWidgetItem(data->name);
-        setItem(row, col++, item);
+        this->setItem(row, col++, item);
         item = new QTableWidgetItem(data->start_time.toString("yyyy-MM-dd hh:mm:ss"));
-        setItem(row, col++, item);
+        this->setItem(row, col++, item);
         item = new QTableWidgetItem(data->end_time.toString("yyyy-MM-dd hh:mm:ss"));
-        setItem(row, col++, item);
+        this->setItem(row, col++, item);
+        ++row;
     }
 
 
@@ -138,7 +146,13 @@ int TaskTableWidget::addTask(Task &to_add)
 
 int TaskTableWidget::deleteTask()
 {
-    return 0;
+    if(selectedRow == -1)
+        return -1;
+    else{
+        taskVector->erase(taskVector->begin() + selectedRow);
+        flushTable();
+    }
+    return selectedRow;
 }
 
 
