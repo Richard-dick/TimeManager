@@ -16,6 +16,8 @@
 
 #include <QVector>
 
+#include "utils.h"
+
 enum TaskState {
     TODO,
     DOING,
@@ -69,7 +71,7 @@ private:
 
 
 
-
+QString LeftTimeTrans(uint64_t gap);
 
 
 

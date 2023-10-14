@@ -65,7 +65,7 @@ void MainWindow::del_task()
         debugInfo("nothing deleted! ");
     }else{
         taskWorkingTable->flushTable();
-        debugInfo("Task "+ QString::number(del_row) +": deleted successfully");
+        debugInfo("Task "+ I2S_default(del_row) +": deleted successfully");
     }
     
 }
@@ -75,7 +75,7 @@ void MainWindow::timerUpdate()
 {
     currentTime = QDateTime::currentDateTime();
 
-    QString str = currentTime.toString("yyyy-MM-dd \ndddd \nhh:mm:ss ");
+    QString str = T2S(currentTime, "yyyy-MM-dd \ndddd \nhh:mm:ss ");
 
     ui->datetimeLabel->setText(str);
 }
@@ -120,7 +120,7 @@ void MainWindow::debugInfo(const QString &text)
         currentText += "\n"; // 添加换行符，将新内容追加到新行
     }
 
-    QString formattedDateTime = currentTime.toString("yyyy-MM-dd HH:mm:ss"); // 格式化时间
+    QString formattedDateTime = T2S_default(currentTime); // 格式化时间
 
     QString fullText = "[" + formattedDateTime + "] " + text; // 将时间和文本拼接
 

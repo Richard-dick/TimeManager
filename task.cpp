@@ -31,9 +31,9 @@ int TaskTableWidget::saveTask()
             out << item.name << "\t";
             // out << item.prio << "\t";
             // out << int(item.state) << "\t";
-            // out << item.init_time.toString("yyyy-MM-dd hh:mm:ss") << "\t";
-            out << item.start_time.toString("yyyy-MM-dd hh:mm:ss") << "\t";
-            out << item.end_time.toString("yyyy-MM-dd hh:mm:ss") << "\t";
+            // out << T2S_default(item.init_time) << "\t";
+            out << T2S_default(item.start_time) << "\t";
+            out << T2S_default(item.end_time) << "\t";
             // out << item.task_tag << "\t";
             // out << item.description << "\t";
             out << "\n";
@@ -99,9 +99,11 @@ void TaskTableWidget::flushTable()
         col = 0;
         item = new QTableWidgetItem(data->name);
         this->setItem(row, col++, item);
-        item = new QTableWidgetItem(data->start_time.toString("yyyy-MM-dd hh:mm:ss"));
+        item = new QTableWidgetItem(T2S_default(data->start_time));
         this->setItem(row, col++, item);
-        item = new QTableWidgetItem(data->end_time.toString("yyyy-MM-dd hh:mm:ss"));
+        item = new QTableWidgetItem(T2S_default(data->end_time));
+        this->setItem(row, col++, item);
+        item = new QTableWidgetItem(LeftTimeTrans(data->left_time));
         this->setItem(row, col++, item);
         ++row;
     }
@@ -124,12 +126,12 @@ void TaskTableWidget::syncTable()
         }
 
         item = this->item(row, col++);
-        if(data->start_time.toString("yyyy-MM-dd hh:mm:ss") != item->text()){
+        if(T2S_default(data->start_time) != item->text()){
             data->start_time = QDateTime::fromString(item->text(), "yyyy-MM-dd hh:mm:ss");
         }
 
         item = this->item(row, col++);
-        if(data->end_time.toString("yyyy-MM-dd hh:mm:ss") != item->text()){
+        if(T2S_default(data->end_time) != item->text()){
             data->end_time = QDateTime::fromString(item->text(), "yyyy-MM-dd hh:mm:ss");
         }
     }
@@ -170,4 +172,30 @@ void TaskTableWidget::mousePressEvent(QMouseEvent *event)
         selectedRow = -1;
     }
     QTableWidget::mousePressEvent(event);
+}
+
+
+QString LeftTimeTrans(uint64_t gap)
+{
+    // 非负
+    if(gap & 0x8000000000000000ul){
+        return "end";
+    }
+    uint64_t sec = gap % 60;
+    gap /= 60;
+    uint64_t min = gap % 60;
+    gap /= 60;
+    uint64_t hour = gap % 24;
+    uint64_t day = gap / 24;
+    if(day){
+        return I2S_default(day) + "d " + I2S_default(hour) + "h";
+    }else if(hour){
+        return I2S_default(hour) + "h " + I2S_default(min) + "min";
+    }else if(min){
+        return I2S_default(min) + "min " + I2S_default(sec) + "s";
+    }else{
+        return "pathetic!";
+    }
+    
+    assert(0);
 }

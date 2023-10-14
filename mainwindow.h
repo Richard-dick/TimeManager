@@ -15,6 +15,7 @@
 
 #include "addDialog.h"
 #include "task.h"
+#include "utils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
