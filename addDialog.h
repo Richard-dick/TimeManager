@@ -25,12 +25,12 @@ public:
         startLabel = new QLabel("起始时间:", this);
         startTimeEdit = new QDateTimeEdit(this);
         startTimeEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
-        startTimeEdit->setDateTime(QDateTime::fromMSecsSinceEpoch(0));
+        startTimeEdit->setDateTime(QDateTime::currentDateTime());
 
         endLabel = new QLabel("截止时间:", this);
         endTimeEdit = new QDateTimeEdit(this);
         endTimeEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
-        endTimeEdit->setDateTime(QDateTime::fromMSecsSinceEpoch(0));
+        endTimeEdit->setDateTime(QDateTime::currentDateTime());
 
         confirmButton = new QPushButton("确认", this);
         cancelButton = new QPushButton("取消", this);
